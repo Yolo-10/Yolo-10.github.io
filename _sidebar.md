@@ -1,4 +1,4 @@
-- [简介](https://github.com/Yolo-10/Yolo-10.github.io/blob/main/archive.md) 
+- [简介](archive.md) 
 - 基础
-  - [HTML](https://github.com/Yolo-10/Yolo-10.github.io/blob/main/base/CSS.md)
-  - [CSS](https://github.com/Yolo-10/Yolo-10.github.io/blob/main/base/HTML.md)
+  - [HTML](base/CSS.md)
+  - [CSS](base/HTML.md)

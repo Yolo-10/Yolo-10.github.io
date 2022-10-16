@@ -12,19 +12,20 @@
 <section>区域</section> 
 <details>详情信息</details>
 ```
+
 3. 2个媒体化标签
 ```html
 audio  音频标签
 video  视频标签
-
-属性              描述
-src         视频（音频）的url地址
-controls    显示播放控件
-autoplay    视频（音频）自动播放
-loop        循环播放
-muted	    静音播放
-关于autoplay：Chrome的新版本屏蔽了autoplay功能,需要js主动开启
 ```
+|属性       |      描述
+| :------- | :-------------------- |
+|src       |  视频（音频）的url地址|
+|controls  | 显示播放控件|
+|autoplay  | 视频（音频）自动播放|
+|loop      | 循环播放|
+|muted	   | 静音播放|
+> 关于autoplay：Chrome的新版本屏蔽了autoplay功能,需要js主动开启
 
 4. 表单的输入类型
 - date、month、week、time、datetime、datetime-local

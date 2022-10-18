@@ -7,7 +7,7 @@
 ## 闭包
 [参考博客](https://blog.csdn.net/weixin_44823731/article/details/105887722)
 闭包：有权访问另一个函数作用域中的变量的函数。
-作用：正常的函数，在执行完之后，函数里面声明的变量就会被垃圾回收处理掉。但是闭包可以让一个函数作用域中的变量，在执行完之后依旧没有被垃圾回收处理掉。 
+作用：正常的函数，在执行完之后，函数里面声明的变量就会被垃圾回收处理掉。但是闭包可以让一个函数作用域中的变量，在执行完之后依旧没有被垃圾回收处理掉。 会造成内存泄露。
 
 ### 经典闭包例子
 ```js
@@ -329,3 +329,43 @@ for (var i = 0; i < 3; j++) {
 - 模块脚本、import、export
 - promise
 
+## 防抖
+> 时间多次触发，只有当n秒内不触发才执行，否则重新计时
+
+适用场景如：文本编辑器实时保存，防止多次提交
+
+```js
+function debounce(func,delay){
+    let timeout;
+    return function(...args){
+        clearTimeout(timeout);
+        timeout = setTimeout(()=>{
+            func.apply(this,args);
+        },delay)
+    }
+}
+```
+
+## 节流
+> 一段时间只执行一次
+
+适用场景如：获取滚动条位置 scroll，拖拽，缩放
+
+```js
+function throttle(func,delay){
+    let canUse = true;
+    return function(...args){
+        if(canUse){
+            func.apply(this,args);
+            canUse = false;
+            setTimeout(()=>canUse=true,delay)
+        }
+    }
+}
+```
+
+
+## 原型链
+任何对象都有原型对象,也就是`prototype`属性,任何原型对象也是一个对象,该对象就有`proto`属性,这样一
+层一层往上找,就形成了一条链,我们称此为原型链
+[原型链](images/原型链.png)

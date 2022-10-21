@@ -1,2 +1,2 @@
 ## 生命周期
-[生命周期](images/生命周期.png)
+<img src="../images/生命周期.png" alt="新生命周期"/>

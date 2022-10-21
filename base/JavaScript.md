@@ -1,8 +1,19 @@
+## js数据类型
+- 基本数据类型：number、string、boolean、null、underfined、symbol(独一无二)、BigInt(安全地存储和操作大整数)
+- 引用数据类型：Object，Object的对象子类型(array、function、date)
+
+### 判断数据类型
+null，undefined 直接使用严格相等 === 判断
+非 null，undefined 的基本类型及函数使用 typeof 判断
+剩余内置类型使用 Object.prototype.toString 判断
+自定义类型使用instanceof
+
+
 ## 页面的 `load` 和 `ready` 事件
 - `load`是当所有资源(包括DOM文档树、CSS文件、JS文件、图片资源)全部加载完成后，执行一个函数。
 当图片资源较多，加载时间较长，`onload`需要等待较长时间。
 - `ready`是当DOM文档树加载完成后执行一个函数（不包含CSS、图片等）,所以会比`load`更快执行
->原生JS中并不包含`ready`方法，只有`load`事件就是`onload`事件
+>原生JS中并不包含`ready`方法，只有`load`方法就是`onload`事件
 
 ## 闭包
 [参考博客](https://blog.csdn.net/weixin_44823731/article/details/105887722)

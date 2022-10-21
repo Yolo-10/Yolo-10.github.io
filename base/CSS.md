@@ -101,3 +101,98 @@ CSS3的新特性大致分为以下六大类
 - CSS3变换
 - CSS3动画
 
+
+## position的值
+- static(静态)：默认
+- relative(相对定位)：设置 `left`、`right`、`bottom`、`top`等值进行偏移，相对于 属性值为 `static`时的位置
+- absolute(绝对定位)：设置 `left`、`right`、`bottom`、`top`等值进行偏移，相对于 最近的非 `static` 定位的祖先元素进行偏移,当没有非`static`定位的祖先元素时，相对于`html`发生偏移
+- fixed(固定定位):设置 `left`、`right`、`bottom`、`top`等值进行偏移，相对于**屏幕视口**
+- sticky(粘性定位)：元素在跨越特定阈值前为相对定位，之后为固定定位，阈值是相对它的最近滚动祖先定义的，而`sticky`的作用区域也是它的第一个非`static`父元素内。
+
+<img src="../images/粘性定位.gif" alt="粘性定位例子">
+
+```html
+<style>
+    .c-box{
+        background-color: #FFA07A;
+        width: 200px;
+        height: 50px;
+        font-size: 16px;
+        line-height: 50px;
+        border: 1px solid #333;
+        text-align: center;
+    }
+
+    .p-container{
+        width: 250px;
+        height: 300px;
+        overflow-y: scroll;
+        border: 1px solid #333;
+    }
+
+    .container{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        position: relative;
+    }
+
+    .h-item{
+        background-color: #4169E1;
+        position: sticky;
+        top: 0;
+    }
+
+    .item{
+        background-color: #87CEFA;
+        border-top: 1px solid #fff;
+    }
+</style>
+<body>
+    <div class="c-box">我是参照物（200 x 50）</div>
+    <div class="p-container">
+        <ul class="container">
+            <li class="h-item">#A</li>
+            <li class="item">art</li>
+            <li class="item">artice</li>
+            <li class="item">address</li>
+            <li class="item">ant</li>
+            <li class="item">andy</li>
+        </ul>
+        <ul class="container">
+            <li class="h-item">#B</li>
+            <li class="item">belong</li>
+            <li class="item">basketball</li>
+            <li class="item">body</li>
+            <li class="item">block</li>
+        </ul>
+        <ul class="container">
+            <li class="h-item">#C</li>
+            <li class="item">canvas</li>
+            <li class="item">circle</li>
+            <li class="item">container</li>
+        </ul>
+        <ul class="container">
+            <li class="h-item">#D</li>
+            <li class="item">dance</li>
+            <li class="item">detail</li>
+            <li class="item">disco</li>
+        </ul>
+        <ul class="container">
+            <li class="h-item">#E</li>
+            <li class="item">edit</li>
+            <li class="item">edge</li>
+            <li class="item">element</li>
+        </ul>
+        <ul class="container">
+            <li class="h-item">#F</li>
+            <li class="item">father</li>
+            <li class="item">fashion</li>
+            <li class="item">fantastic</li>
+        </ul>
+    </div>
+</body>
+
+```
+
+

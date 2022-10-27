@@ -1,12 +1,16 @@
 ## js数据类型
-- 基本数据类型：number、string、boolean、null、underfined、symbol(独一无二)、BigInt(安全地存储和操作大整数)
-- 引用数据类型：Object，Object的对象子类型(array、function、date)
+### 基本数据类型
+存储在堆中，
+7种：`number`、`string`、`boolean`、`null`、`underfined`、`symbol(独一无二)`、`BigInt(安全地存储和操作大整数)`
+###  引用数据类型
+`Object`，`Object`的对象子类型(`array`、`function`、`date`)
 
 ### 判断数据类型
-null，undefined 直接使用严格相等 === 判断
-非 null，undefined 的基本类型及函数使用 typeof 判断
-剩余内置类型使用 Object.prototype.toString 判断
-自定义类型使用instanceof
+存储在栈中
+- `null`，`undefined` 直接使用严格相等 === 判断
+- 非 `null`，`undefined` 的基本类型及函数使用 `typeof` 判断
+- 剩余内置类型使用 `Object.prototype.toString`判断
+- 自定义类型使用`instanceof`
 
 
 ## 页面的 `load` 和 `ready` 事件
@@ -18,7 +22,7 @@ null，undefined 直接使用严格相等 === 判断
 ## 闭包
 [参考博客](https://blog.csdn.net/weixin_44823731/article/details/105887722)
 闭包：有权访问另一个函数作用域中的变量的函数。
-作用：正常的函数，在执行完之后，函数里面声明的变量就会被垃圾回收处理掉。但是闭包可以让一个函数作用域中的变量，在执行完之后依旧没有被垃圾回收处理掉。 会造成内存泄露。
+作用：正常的函数，在执行完之后，函数里面声明的变量就会被**垃圾回收**处理掉。但是闭包可以让一个函数作用域中的变量，在执行完之后依旧没有被垃圾回收处理掉。 会造成**内存泄露**。
 
 ### 经典闭包例子
 ```js
@@ -121,14 +125,13 @@ JavaScript 中的作用域包含：
 
 
 
-### 2. let, var 区别
+### 2. let, var, const 区别
 
-首先，从作用域角度看，`var` 声明的变量可以使用在**全局作用域以及函数作用域**中，而 `let` 声明的变量是限制在**块级作用域**中的。所以，在最程序顶部声明时，`var` 会**向全局对象添加属性**，`let` 不会。
+首先，从作用域角度看，`var` 声明的变量可以使用在**全局作用域以及函数作用域**中，而 `let` 与 `const` 声明的变量是限制在**块级作用域**中的。所以，在最程序顶部声明时，`var` 会**向全局对象添加属性**，`let` 不会。
 
 其次，`var` 会进行**变量提升**处理，因此将声明放在其所在作用域的任一行都可以，在被赋值前返回值为 `undefined`，但 `let` 不会，在声明前是不可访问的。受 `let` 这一特点的影响，在执行到 `let` 初始化语句前，存在**暂存死区**，如果使用该变量会抛出 `ReferenceError`，提示不能在初始化前取到该变量。
 
-最后，`var` 在同个作用域内可**重复声明**，后面的值会覆盖前面的值，但 `let` 在同个作用域内如重复声明，会抛出语法错误，提示不要重复声明。这个在写 `switch` 语句时会碰到，因为 ``switch``语句为一个块作用域。
-
+最后，`var` 在同个作用域内可**重复声明**，后面的值会覆盖前面的值，但 `let` 在同个作用域内如重复声明，会抛出语法错误，提示不要重复声明。这个在写 `switch` 语句时会碰到，因为 ``switch``语句为一个块作用域。`const`声明的是常量，`const`需在**定义变量时就声明**，不可修改。
 
 
 ### 3. 何为提升
@@ -380,3 +383,70 @@ function throttle(func,delay){
 任何对象都有原型对象,也就是`prototype`属性,任何原型对象也是一个对象,该对象就有`proto`属性,这样一
 层一层往上找,就形成了一条链,我们称此为原型链
 [原型链](images/原型链.png)
+
+## this指向
+- 函数调用时决定的，一般指向调用者
+- 通过new这个函数，把它当成构造函数使用时，`this`指向实例对象
+- 当成普通函数使用时，`this`就会指向全局指向，在浏览器中是`window`，在`node`中就是`global`, 严格模式下`use strict`是`underfined`
+
+### 为什么react函数式组件中没有`this`指向
+- 这是经过`babel`翻译(将jsx语法翻译成js)的结果
+- Babel是在严格模式`use strict`下执行的，不允许`this`指向`window`,所以`this`指向为`underfined`
+
+### 改变`this`指向的方法
+#### call 
+```js
+function fn(x, y) {
+    console.log(this); //{name: 'andy'}
+    console.log(x + y); //3
+}
+var o = {
+    name: 'andy'
+};
+fn.call(o, 1, 2);//调用了函数此时的this指向了对象o
+```
+
+#### apply
+```js
+var o = {
+    name: 'andy'
+}
+function fn(a, b) {
+    console.log(this); //{name: 'andy'}
+    console.log(a+b) //3
+};
+fn.apply(o,[1,2])
+```
+
+#### bind
+bind() 方法不会调用函数,但是能改变函数内部this 指向,返回的是原函数改变this之后产生的新函数
+```js
+var o = {
+    name: 'andy'
+};
+function fn(a, b) {
+    console.log(this);//{name: 'andy'}
+    console.log(a + b);//3
+};
+var f = fn.bind(o, 1, 2); //此处的f是bind返回的新函数
+f();//调用新函数 this指向的是对象o 参数使用逗号隔开
+```
+
+
+#### call、apply、bind三者的异同
+- 共同点 : 都可以改变this指向
+- 不同点:
+    1. call 和 apply 会调用函数, 并且改变函数内部this指向.
+    2. call 和 apply传递的参数不一样,call传递参数使用逗号隔开,apply使用数组传递
+    4. bind 不会调用函数, 可以改变函数内部this指向.
+- 应用场景
+    1. call 经常做继承.
+    2. apply经常跟数组有关系. 比如借助于数学对象实现数组最大值最小值
+    3. bind 不调用函数,但是还想改变this指向. 比如改变定时器内部的this指向.
+
+
+
+## `=`,`==`,`===`有什么区别？
+`=`:赋值运算符
+`==`: 判断值是否相等
+`===`: 判断引用地址指向内存是否相等

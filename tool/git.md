@@ -13,6 +13,7 @@ git reset --soft 版本号          #回退commit操作，保存原有修改
 
 # 查看操作
 git log                         #查看commit history
+git status                      #查看文件工作区、暂存区的状态
 
 # 分支操作
 git add -a                      #查看所有分支(本地+远程)

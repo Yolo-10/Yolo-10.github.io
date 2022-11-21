@@ -1,15 +1,11 @@
 ## `get`与`post`的区别
 1. POST和GET都是HTTP请求的基本方法。
 2. 区别主要有以下几个：
+  - GET 一般用于获取数据，POST一般用于提交数据
+  - GET 请求参数放在url中，所以安全性较差，且长度有限制（不同浏览器、服务器的限制不同，url的最大长度是2048），
+  POST 请求参数放在request.body中，安全性较好，长度无限制
   - GET 请求在浏览器刷新或者回退的时候是无害的。POST的话数据会被重新提交。
-  - GET可以被书签收藏，POST不行
-  - GET可以存在缓存中。POST不行
-  - GET 会将数据存在浏览器的历史中，POST不会
-  - GET 编码格式只能用ASCII码，POST没有限制
-  - GET 数据类型urlencode,POST是URLENCODE，form-data
-  - 可见性 参数在URL用户可以看见，POST的参数在REQUSET BODY中不会被用户看见
-  - 安全性 GET相对不安全 POST相对安全些
-  - 长度 参数一般限制2048（和WEB服务器相关），参数无限制。
+  - GET 可以被缓存、书签收藏、保存在浏览器记录中，POST不行
 3. GET 和POST在请求的时候
   - GET 是将数据中的hearder 和 data 一起发送给服务端，返回200code
   - POST 是先将hearder发给服务器返回100continue，再发送data给到服务器，返回200

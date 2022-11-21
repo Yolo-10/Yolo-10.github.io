@@ -1,12 +1,12 @@
 ## js数据类型
 ### 基本数据类型
-存储在堆中，
+存储在栈
 7种：`number`、`string`、`boolean`、`null`、`underfined`、`symbol(独一无二)`、`BigInt(安全地存储和操作大整数)`
 ###  引用数据类型
+存储在堆
 `Object`，`Object`的对象子类型(`array`、`function`、`date`)
 
 ### 判断数据类型
-存储在栈中
 - `null`，`undefined` 直接使用严格相等 === 判断
 - 非 `null`，`undefined` 的基本类型及函数使用 `typeof` 判断
 - 剩余内置类型使用 `Object.prototype.toString`判断

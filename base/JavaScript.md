@@ -343,6 +343,36 @@ for (var i = 0; i < 3; j++) {
 - 模块脚本、import、export
 - promise
 
+## 箭头函数
+
+### 箭头函数与普通函数的区别
+#### 原型
+- 箭头函数没有`prototype`属性
+#### this指向
+- 箭头函数本身没有`this`，`this`指向其上下文的`this`;普通函数的 this 取决于在哪被调用，怎么调用s
+- 不能直接修改它的`this`指向，只能间接修改上下文的`this`;普通函数可以通过 `call`，`apply`，`bind` 直接修改 `this`
+- 全局作用域的`this`指向,箭头函数在严格和非严格模式下都绑定到 `window`;普通函数在严格模式下绑定到 `undefined`，否则绑定到全局对象 `window`
+
+#### new
+> ES6 为new命令引入了一个new.target属性，该属性一般用在构造函数之中，返回new命令作用于的那个构造函数。如果构造函数不是通过new命令或Reflect.construct()调用的，new.target会返回undefined
+
+- 箭头函数不能做构造函数，使用 `new` 会抛出错误
+- 箭头函数不支持`new.target`
+
+#### 参数
+- 箭头函数的 this 指向全局时，使用 arguments 会报未声明的错误；this 指向普通函数时，arguments 继承自该普通函数；查找方式类似于作用域链查询
+
+可以使用 ES6 的 rest 参数（即 ... 扩展符）来获取不定数量的参数
+
+#### 迭代
+- 箭头函数不可以使用 `yield` 命令，因此不能用作 `Generator` 函数
+
+### 为什么箭头函数不能做构造函数
+- 没有自己的 `this`
+- 没有 `prototype` 属性
+- 而 `new` 实例化对象的过程中，会将对象的原型连接到构造函数的原型上，且使用 `call` 或 `apply`将 `this` 指向实例调用构造函数
+
+
 ## 防抖
 > 时间多次触发，只有当n秒内不触发才执行，否则重新计时
 
@@ -380,8 +410,10 @@ function throttle(func,delay){
 
 
 ## 原型链
-任何对象都有原型对象,也就是`prototype`属性,任何原型对象也是一个对象,该对象就有`proto`属性,这样一
+任何对象都有原型对象,也就是`prototype`属性,任何原型对象也是一个对象,该对象就有`__proto__`属性,这样一
 层一层往上找,就形成了一条链,我们称此为原型链
+
+一般对象的原型链顶点是`Object.prototype`
 [原型链](images/原型链.png)
 
 ## this指向
@@ -450,3 +482,37 @@ f();//调用新函数 this指向的是对象o 参数使用逗号隔开
 `=`:赋值运算符
 `==`: 判断值是否相等
 `===`: 判断引用地址指向内存是否相等
+
+
+## 说说对`promise`的了解
+### 是什么？
+是`ES6`提出的异步编程解决方案
+三种状态：`pending`(进行中)、`fulfilled`(成功)、`rejected`(失败)
+两种状态改变可能：`pending`-->`fulfilled`(执行`resolve();`)、`pending`-->`rejected`(执行`rejected();`)
+### 为什么？
+之前的异步方案是采用嵌套使用，当嵌套层级较多时，形成回调地狱，代码难以维护
+`promise`减少层层调用，链式调用，解决回调地狱问题，代码方便维护,更好地捕获错误
+### 怎么用？
+基本用法
+```js
+let p = new Promise((resolve, reject) => {
+    //做一些异步操作
+    setTimeout(function(){
+        var num = Math.ceil(Math.random()*10); //生成1-10的随机数
+        if(num<=5){
+            resolve(num);
+        }
+        else{
+            reject('数字太大了');
+        }
+  }, 2000);
+});
+p.then((data) => {
+        console.log('resolved',data);
+    },(err) => {
+        console.log('rejected',err);
+    }
+); 
+```
+### 手写promise
+TODO：
